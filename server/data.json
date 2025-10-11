@@ -1,102 +1,13 @@
 {
   "users": [
-    {
-      "id": 1,
-      "email": "mohamed@gmail.com",
-      "passwordHash": "$2b$10$dWGaI37iJmCyXqpdcZhcBOByft0iTzZzZuhx5EIYbvVdjRlF8Gvu6",
-      "type": "user",
-      "orgName": null,
-      "failedAttempts": 4,
-      "lockUntil": 1758173229
-    },
-    {
-      "id": 2,
-      "email": "mohmaedd22@gmail.com",
-      "passwordHash": "$2b$10$.71A9ciUhrxGHqyKllTxFeSxUbcl/zA6EkebScEQVCHxbK7I8h20u",
-      "type": "organization",
-      "orgName": "tec",
-      "failedAttempts": 1,
-      "lockUntil": 0
-    },
-    {
-      "id": 3,
-      "email": "mohmaedd2@gmail.com",
-      "passwordHash": "$2b$10$BbSPDI4aRD3V5aNGfvoBV.ICEM8KfS3sUE0I6ySLj2JvQSWmP2k/m",
-      "type": "organization",
-      "orgName": "tec",
-      "failedAttempts": 1,
-      "lockUntil": 0
-    },
-    {
-      "id": 4,
-      "email": "mohamedd@gmail.com",
-      "passwordHash": "$2b$10$E3RNJLNGbkUuiophqd3sTOw.Puzyc/Pm7T2adWHP25VxtIhwrTi8i",
-      "type": "organization",
-      "orgName": "group",
-      "failedAttempts": 3,
-      "lockUntil": 1758147070
-    },
-    {
-      "id": 5,
-      "email": "moahmed1@gmail.com",
-      "passwordHash": "$2b$10$jCZE96k5AopySztGAPzwWeCzbb35MAJtAKvv1e9VGrVk4vpL888xq",
-      "type": "user",
-      "orgName": null,
-      "failedAttempts": 0,
-      "lockUntil": 0
-    },
-    {
-      "id": 6,
-      "email": "ahmed@gmail.com",
-      "passwordHash": "$2b$10$wctnxuJT/ZJ1.IMyEX0kn.mRsarOEXzum/HL5SY9bme3BSrdLsZsS",
-      "type": "user",
-      "orgName": null,
-      "failedAttempts": 0,
-      "lockUntil": 0
-    },
-    {
-      "id": 7,
-      "email": "ahmedahmed@gmail.com",
-      "passwordHash": "$2b$10$96.yvxxzyzYmAt6Ql1869eeKz0MxBK3SVygpXAEh7LrTTIfMDfzNW",
-      "type": "user",
-      "orgName": null,
-      "failedAttempts": 0,
-      "lockUntil": 0
-    },
-    {
-      "id": 8,
-      "email": "mohmedahmed@gmail.com",
-      "passwordHash": "$2b$10$0fnAJopT1lxno6K.wPwh3eJBNJzN938bL5chFVEn46jif5vbUNaee",
-      "type": "organization",
-      "orgName": "tech",
-      "failedAttempts": 0,
-      "lockUntil": 0
-    },
+
     {
       "id": 9,
       "email": "rakan@gmail.com",
       "passwordHash": "$2b$10$BHupuLjGJ8IzNneVBKMPbOG00K1x003bgSU.XbnwS.r8Gm4DBIZAq",
       "type": "user",
       "orgName": null,
-      "failedAttempts": 2,
-      "lockUntil": 0
-    },
-    {
-      "id": 10,
-      "email": "testorg@example.com",
-      "passwordHash": "$2b$10$bJTWTuG3wdJBPzWtqPIcCOQI9jvoRGSr5Em8D34SAQynM9T8/6MMy",
-      "type": "organization",
-      "orgName": "Test Organization",
-      "failedAttempts": 0,
-      "lockUntil": 0
-    },
-    {
-      "id": 11,
-      "email": "rakanmm@gmail",
-      "passwordHash": "$2b$10$hNzPrIgofZH7HlhjWSR61uFyJwinaR.0d49ohswSalQlEt78qipfi",
-      "type": "organization",
-      "orgName": "almoss",
-      "failedAttempts": 0,
+      "failedAttempts": 1,
       "lockUntil": 0
     },
     {
@@ -107,118 +18,66 @@
       "orgName": null,
       "failedAttempts": 0,
       "lockUntil": 0
-    },
-    {
-      "id": 13,
-      "email": "testsecurity@example.com",
-      "passwordHash": "$2b$10$.urfPbZVRynKwnWe.1mCd.JYYWM26/Yjd8.z64T5JbI9KtZ7qIfda",
-      "type": "user",
-      "orgName": null,
-      "failedAttempts": 1,
-      "lockUntil": 0
-    },
-    {
-      "id": 14,
-      "email": "testnormal@example.com",
-      "passwordHash": "$2b$10$BQ9x5emw21X3SVdrDqjetOYAFWv0Q0A7rOFv6jXRQ7/o2CmYtcE/G",
-      "type": "user",
-      "orgName": null,
-      "failedAttempts": 1,
-      "lockUntil": 0
-    },
-    {
-      "id": 15,
-      "email": "testuser@example.com",
-      "passwordHash": "$2b$10$r4b87w9BiYWyTYs5L9vdBesiT5wL5jwve/7i9hPHBNj0TmqE98r42",
-      "type": "user",
-      "orgName": null,
-      "failedAttempts": 0,
-      "lockUntil": 0
-    },
-    {
-      "id": 16,
-      "email": "testuser2@example.com",
-      "passwordHash": "$2b$10$m7u6b9hdZmxFa0G.IHajd.Wu5CE4nmL2u39aNpAyiQvlj.iqeVSPK",
-      "type": "user",
-      "orgName": null,
-      "failedAttempts": 0,
-      "lockUntil": 0
-    },
-    {
-      "id": 17,
-      "email": "testorg2@example.com",
-      "passwordHash": "$2b$10$C5s8EZ3ojSbS85gsxTnTUegM99DR1juBEToM5iMm/EJnzrWWTy0eW",
-      "type": "organization",
-      "orgName": "Test Organization 2",
-      "failedAttempts": 0,
-      "lockUntil": 0
-    },
-    {
-      "id": 18,
-      "email": "securitytest@example.com",
-      "passwordHash": "$2b$10$RoQeJ3TLH5UQ/lRQa6/7AuTUT7UZbgWNcMdDAZnqXSjEst8B3v6WG",
-      "type": "user",
-      "orgName": null,
-      "failedAttempts": 3,
-      "lockUntil": 1760202605,
-      "securityQuestion": "What was the name of your first pet?",
-      "answerOptions": [
-        "Fluffy",
-        "Buddy",
-        "Max",
-        "Whiskers"
-      ],
-      "correctAnswerIndex": 1
-    },
-    {
-      "id": 19,
-      "email": "securityorg@example.com",
-      "passwordHash": "$2b$10$6htuM4Rs36aChorUB9UFk.0g8D.RribV0LmZYLqmKpGT3BNrIz4iG",
-      "type": "organization",
-      "orgName": "Security Test Org",
-      "failedAttempts": 0,
-      "lockUntil": 0,
-      "securityQuestion": "What city were you born in?",
-      "answerOptions": [
-        "New York",
-        "London",
-        "Paris",
-        "Tokyo"
-      ],
-      "correctAnswerIndex": 2
-    },
-    {
-      "id": 20,
-      "email": "newsecurity@example.com",
-      "passwordHash": "$2b$10$yWhAEOMyzlW7scnq.fOw6uCt979FSyfotCE3uX1IhWh/A9u7wu1Ve",
-      "type": "user",
-      "orgName": null,
-      "failedAttempts": 0,
-      "lockUntil": 0,
-      "securityQuestion": "What was the name of your first pet?",
-      "answerOptions": [
-        "Fluffy",
-        "Buddy",
-        "Max",
-        "Whiskers"
-      ],
-      "correctAnswerIndex": 1
-    },
-    {
-      "id": 21,
-      "email": "backwardcompat@example.com",
-      "passwordHash": "$2b$10$4k/GEisxw1/4nytBZ4Ub4ebp3hZO0ZV8fSpSFqXXmtwlPExMGW6kK",
-      "type": "user",
-      "orgName": null,
-      "failedAttempts": 0,
-      "lockUntil": 0
     }
   ],
-  "events": [],
-  "reservations": [],
+  "events": [
+    
+    {
+      "id": 3,
+      "title": "Tech Conference 2025",
+      "category": "technology",
+      "description": "Join us for the biggest technology conference of the year featuring AI, blockchain, and cloud computing experts.",
+      "location": "Riyadh Convention Center",
+      "date": "2025-12-15T09:00:00",
+      "price": 150,
+      "capacity": 500,
+      "organizerId": 10,
+      "image": null,
+      "savedBy": [],
+      "likes": 0,
+      "likedBy": []
+    },
+    {
+      "id": 4,
+      "title": "Food Festival 2025",
+      "category": "food",
+      "description": "Experience the best of Saudi cuisine with traditional dishes, modern fusion, and international flavors from around the world.",
+      "location": "Jeddah Waterfront",
+      "date": "2025-11-20T18:00:00",
+      "price": 75,
+      "capacity": 300,
+      "organizerId": 10,
+      "image": null,
+      "savedBy": [],
+      "likes": 0,
+      "likedBy": []
+    }
+  ],
+  "reservations": [
+    {
+      "id": 1,
+      "eventId": 2,
+      "userEmail": "rakan@gmail.com",
+      "fullName": "Test User",
+      "phone": "1234567890",
+      "reservedAt": 1758246699,
+      "seats": 1,
+      "paymentStatus": "paid"
+    },
+    {
+      "id": 2,
+      "eventId": 1,
+      "userEmail": "rakan@gmail.com",
+      "fullName": "Test User",
+      "phone": "1234567890",
+      "reservedAt": 1758246704,
+      "seats": 1,
+      "paymentStatus": "paid"
+    }
+  ],
   "lastIds": {
-    "users": 21,
-    "events": 0,
-    "reservations": 0
+    "users": 12,
+    "events": 5,
+    "reservations": 2
   }
 }

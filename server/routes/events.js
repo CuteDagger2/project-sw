@@ -37,7 +37,6 @@ function authMiddleware(req, res, next) {
   }
 }
 
-
 // List events
 router.get('/', (req, res) => {
   (async () => {
