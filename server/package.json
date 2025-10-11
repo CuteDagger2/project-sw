@@ -1,0 +1,22 @@
+{
+  "name": "saudi-events-server",
+  "version": "1.0.0",
+  "description": "Backend for Saudi Events - Express + SQLite (local dev)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "lowdb": "^6.0.1",
+    "multer": "^2.0.2",
+    "nodemailer": "^6.9.3"
+  }
+}

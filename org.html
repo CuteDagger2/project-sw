@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Company Dashboard - Events</title>
+  <link rel="stylesheet" href="as.css">
+</head>
+<body>
+  <!-- HEADER, NAV, and FOOTER copied from index.html for consistency -->
+  <div class="container">
+    <section class="profile">
+      <img src="https://via.placeholder.com/100" alt="Company Logo" class="company-img">
+      <div class="company-info">
+        <h2>Company Name</h2>
+        <p>Brief description about the company and its activities.</p>
+      </div>
+    </section>
+
+    <section class="events-section">
+      <div class="events-header">
+        <h3>Events</h3>
+        <button class="add-btn" onclick="openForm()">+</button>
+      </div>
+      <ul id="events-list" class="events-list">
+      </ul>
+    </section>
+  </div>
+
+  <div id="event-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="modal-title">Add Event</h3>
+      
+      <div class="form-group">
+        <label for="event-name">Event Name *</label>
+        <input type="text" id="event-name" placeholder="Enter event name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="event-category">Event Category *</label>
+        <select id="event-category" required>
+          <option value="">Select category</option>
+          <option value="food">Food & Dining</option>
+          <option value="entertainment">Entertainment</option>
+          <option value="sports">Sports & Fitness</option>
+          <option value="education">Education & Learning</option>
+          <option value="business">Business & Networking</option>
+          <option value="arts">Arts & Culture</option>
+          <option value="technology">Technology</option>
+          <option value="health">Health & Wellness</option>
+          <option value="travel">Travel & Tourism</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="event-description">Event Description *</label>
+        <textarea id="event-description" placeholder="Describe your event in detail" required></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="event-location">Location *</label>
+        <input type="text" id="event-location" placeholder="Enter event location" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="event-date">Date & Time *</label>
+        <input type="datetime-local" id="event-date" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="event-price">Price (SAR) *</label>
+        <input type="number" id="event-price" placeholder="0 for free events" min="0" step="0.01" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="event-seats">Available Seats *</label>
+        <input type="number" id="event-seats" placeholder="Maximum number of attendees" min="1" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="event-image">Event Image</label>
+        <input type="file" id="event-image" accept="image/*">
+        <div id="event-image-preview" style="margin:8px 0;"></div>
+      </div>
+      
+      <div class="modal-actions">
+        <button onclick="saveEvent()" class="save-btn">Save Event</button>
+        <button onclick="closeForm()" class="cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="jsss.js"></script>
+</body>
+</html>

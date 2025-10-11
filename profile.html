@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Saudi Events</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .profile-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        .profile-sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .profile-main {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-image-edit {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .profile-image:hover .profile-image-edit {
+            opacity: 1;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2a5298;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .profile-nav {
+            margin-top: 2rem;
+        }
+
+        .profile-nav-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            color: #333;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: background 0.3s;
+        }
+
+        .profile-nav-item:hover,
+        .profile-nav-item.active {
+            background: #f8f9fa;
+            color: #2a5298;
+        }
+
+        .profile-nav-item i {
+            margin-right: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f8f9fa;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #2a5298;
+            outline: none;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .save-btn {
+            background: #2a5298;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .save-btn:hover {
+            background: #1e3c72;
+        }
+
+        .reservations-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .reservation-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .reservation-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .reservation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .reservation-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .reservation-id {
+            font-size: 0.9rem;
+            color: #6c757d;
+            background: #e9ecef;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+        }
+
+        .reservation-content {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .reservation-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .reservation-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .reservation-details {
+            flex: 1;
+        }
+
+        .event-summary {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #dee2e6;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            padding: 0.3rem 0;
+        }
+
+        .summary-item:last-child {
+            margin-bottom: 0;
+            border-top: 1px solid #e9ecef;
+            padding-top: 0.5rem;
+            font-weight: 600;
+            color: #27ae60;
+        }
+
+        .summary-label {
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .summary-value {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .reservation-meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .reservation-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .status-upcoming {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-completed {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-cancelled {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .favorites-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #6c757d;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            color: #2a5298;
+            background: #f8f9fa;
+        }
+
+        .tab-btn.active {
+            color: #2a5298;
+            border-bottom-color: #2a5298;
+            background: #f8f9fa;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .favorite-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: grid;
+            grid-template-columns: 120px 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .favorite-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .favorite-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .favorite-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .favorite-details h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+
+        .favorite-meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .favorite-price {
+            font-weight: 600;
+            color: #27ae60;
+            font-size: 1.1rem;
+        }
+
+        .favorite-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .book-btn {
+            background: #2a5298;
+            color: white;
+        }
+
+        .book-btn:hover {
+            background: #1e3c72;
+        }
+
+        .remove-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .remove-btn:hover {
+            background: #c82333;
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+
+            .reservation-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .reservation-image {
+                margin: 0 auto;
+                width: 100px;
+                height: 100px;
+            }
+
+            .reservation-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .reservation-title {
+                margin-bottom: 0.5rem;
+            }
+
+            .event-summary {
+                text-align: left;
+            }
+
+            .favorite-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .favorite-image {
+                margin: 0 auto;
+                width: 100px;
+                height: 100px;
+            }
+
+            .favorite-actions {
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .favorites-tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="sticky-header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Saudi Events</span>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="profile-container">
+            <div class="profile-sidebar">
+                <div class="profile-header">
+                    <div class="profile-image">
+                        <img src="https://via.placeholder.com/150" alt="Profile picture" id="profile-pic">
+                        <div class="profile-image-edit">
+                            <i class="fas fa-camera"></i> Change Photo
+                        </div>
+                    </div>
+                    <h2 class="profile-name" id="profile-name">Loading...</h2>
+                    <p class="profile-email" id="profile-email">Loading...</p>
+                </div>
+
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Events</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Upcoming</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">7</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                </div>
+
+                <nav class="profile-nav">
+                    <a href="#profile" class="profile-nav-item active">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                    <a href="#reservations" class="profile-nav-item">
+                        <i class="fas fa-calendar-check"></i> Reservations
+                    </a>
+                    <a href="#favorites" class="profile-nav-item">
+                        <i class="fas fa-heart"></i> My Favorites
+                    </a>
+                    <a href="#settings" class="profile-nav-item">
+                        <i class="fas fa-cog"></i> Settings
+                    </a>
+                    <a href="#" class="profile-nav-item" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </nav>
+            </div>
+
+            <div class="profile-main">
+                <section id="profile-section">
+                    <h2 class="section-title">Edit Profile</h2>
+                    <form id="profile-form">
+                        <div class="form-group">
+                            <label for="full-name">Full Name</label>
+                            <input type="text" id="full-name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" placeholder="Tell us about yourself..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" placeholder="City, Country">
+                        </div>
+
+                        <button type="submit" class="save-btn">Save Changes</button>
+                    </form>
+                </section>
+
+                <section id="reservations-section" style="display: none;">
+                    <h2 class="section-title">My Reservations</h2>
+                    <div class="reservations-list">
+                        <div class="reservation-card">
+                            <div class="reservation-image">
+                                <img src="https://via.placeholder.com/100" alt="Event image">
+                            </div>
+                            <div class="reservation-details">
+                                <h3>Desert Safari Adventure</h3>
+                                <p class="reservation-meta">
+                                    <i class="fas fa-calendar"></i> March 15, 2024
+                                    <i class="fas fa-clock"></i> 2:00 PM
+                                </p>
+                            </div>
+                            <span class="reservation-status status-upcoming">Upcoming</span>
+                        </div>
+
+                        <div class="reservation-card">
+                            <div class="reservation-image">
+                                <img src="https://via.placeholder.com/100" alt="Event image">
+                            </div>
+                            <div class="reservation-details">
+                                <h3>Traditional Food Festival</h3>
+                                <p class="reservation-meta">
+                                    <i class="fas fa-calendar"></i> March 10, 2024
+                                    <i class="fas fa-clock"></i> 6:00 PM
+                                </p>
+                            </div>
+                            <span class="reservation-status status-completed">Completed</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="favorites-section" style="display: none;">
+                    <h2 class="section-title"><i class="fas fa-heart"></i> My Favorites</h2>
+                    <div class="favorites-tabs">
+                        <button class="tab-btn active" data-tab="saved">Saved Events</button>
+                        <button class="tab-btn" data-tab="liked">Liked Events</button>
+                    </div>
+                    <div id="saved-events-list" class="tab-content active">
+                        <p>Loading your saved events...</p>
+                    </div>
+                    <div id="liked-events-list" class="tab-content">
+                        <p>Loading your liked events...</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Check if user is logged in
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'log.html';
+        }
+
+        // Load user data
+        const userEmail = localStorage.getItem('userEmail');
+        if (userEmail) {
+            document.getElementById('profile-email').textContent = userEmail;
+            document.getElementById('profile-name').textContent = (localStorage.getItem('userFullName') || userEmail.split('@')[0]);
+            
+            // Load saved events
+            loadSavedEvents(userEmail);
+            // Load liked events
+            loadLikedEvents(userEmail);
+        }
+
+        // Function to load saved events
+        async function loadSavedEvents(email) {
+            try {
+                const response = await fetch(`/api/events/saved?email=${encodeURIComponent(email)}`);
+                const data = await response.json();
+                const container = document.getElementById('saved-events-list');
+                
+                if (!data.ok || !data.events || data.events.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 2rem; color: #6c757d;">
+                            <i class="fas fa-heart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                            <h3>No Saved Events</h3>
+                            <p>You haven't saved any events yet. <a href="index.html">Browse events</a> to save your favorites!</p>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = data.events.map(e => createFavoriteCard(e, 'saved')).join('');
+                    attachFavoriteHandlers(container, 'saved');
+                }
+            } catch (error) {
+                console.error('Error loading saved events:', error);
+                document.getElementById('saved-events-list').innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #dc3545;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <h3>Error Loading Saved Events</h3>
+                        <p>There was a problem loading your saved events. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Function to load liked events
+        async function loadLikedEvents(email) {
+            try {
+                const response = await fetch(`/api/events/liked?email=${encodeURIComponent(email)}`);
+                const data = await response.json();
+                const container = document.getElementById('liked-events-list');
+                
+                if (!data.ok || !data.events || data.events.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 2rem; color: #6c757d;">
+                            <i class="fas fa-thumbs-up" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                            <h3>No Liked Events</h3>
+                            <p>You haven't liked any events yet. <a href="index.html">Browse events</a> to like your favorites!</p>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = data.events.map(e => createFavoriteCard(e, 'liked')).join('');
+                    attachFavoriteHandlers(container, 'liked');
+                }
+            } catch (error) {
+                console.error('Error loading liked events:', error);
+                document.getElementById('liked-events-list').innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #dc3545;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <h3>Error Loading Liked Events</h3>
+                        <p>There was a problem loading your liked events. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Function to create favorite card HTML
+        function createFavoriteCard(event, type) {
+            const eventDate = event.date ? new Date(event.date).toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }) : 'Date not specified';
+            
+            const eventTime = event.date ? new Date(event.date).toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit'
+            }) : 'Time not specified';
+            
+            const price = event.price ? `${event.price} SAR` : 'Free';
+            
+            return `
+                <div class="favorite-card" data-id="${event.id}">
+                    <div class="favorite-image">
+                        <img src="${event.image || 'https://via.placeholder.com/120'}" alt="${event.title}">
+                    </div>
+                    <div class="favorite-details">
+                        <h3>${event.title}</h3>
+                        <p class="favorite-meta">
+                            <i class="fas fa-calendar"></i> ${eventDate}<br>
+                            <i class="fas fa-clock"></i> ${eventTime}<br>
+                            <i class="fas fa-map-marker-alt"></i> ${event.location || 'Location not specified'}
+                        </p>
+                        <p class="favorite-price">${price}</p>
+                    </div>
+                    <div class="favorite-actions">
+                        <a href="reservation.html?eventId=${event.id}" class="action-btn book-btn">Book Now</a>
+                        <button class="action-btn remove-btn" data-id="${event.id}" data-type="${type}">
+                            ${type === 'saved' ? 'Remove' : 'Unlike'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to attach event handlers to favorite cards
+        function attachFavoriteHandlers(container, type) {
+            container.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const id = btn.dataset.id;
+                    const token = localStorage.getItem('token');
+                    if (!token) { 
+                        alert('Please login to manage your favorites'); 
+                        return; 
+                    }
+                    
+                    try {
+                        let response;
+                        if (type === 'saved') {
+                            response = await fetch(`/api/events/${id}/unsave`, { 
+                                method: 'DELETE', 
+                                headers: { 'Authorization': 'Bearer ' + token } 
+                            });
+                        } else {
+                            // For liked events, we'll implement an unlike endpoint
+                            response = await fetch(`/api/events/${id}/unlike`, { 
+                                method: 'POST', 
+                                headers: { 
+                                    'Authorization': 'Bearer ' + token,
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ email: localStorage.getItem('userEmail') })
+                            });
+                        }
+                        
+                        const data = await response.json();
+                        if (response.ok) {
+                            // Remove card from UI
+                            const card = btn.closest('.favorite-card');
+                            if (card) card.remove();
+                            
+                            // Show success message
+                            const message = type === 'saved' ? 'Event removed from saved' : 'Event unliked';
+                            alert(message);
+                        } else {
+                            alert(data.error || 'Failed to remove event');
+                        }
+                    } catch (error) {
+                        console.error('Error removing event:', error);
+                        alert('Network error');
+                    }
+                });
+            });
+        }
+
+        // Handle profile navigation
+        const navItems = document.querySelectorAll('.profile-nav-item');
+        const sections = document.querySelectorAll('section');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (this.id === 'logout-btn') {
+                    e.preventDefault();
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('userEmail');
+                    window.location.href = 'log.html';
+                    return;
+                }
+
+                e.preventDefault();
+                const target = this.getAttribute('href').substring(1);
+                
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+
+                sections.forEach(section => {
+                    section.style.display = section.id === `${target}-section` ? 'block' : 'none';
+                });
+            });
+        });
+
+        // Handle favorites tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetTab = this.dataset.tab;
+                
+                // Update active tab button
+                tabBtns.forEach(tab => tab.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update active tab content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === `${targetTab}-events-list`) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Handle profile form submission
+        document.getElementById('profile-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                fullName: document.getElementById('full-name').value,
+                bio: document.getElementById('bio').value,
+                phone: document.getElementById('phone').value,
+                location: document.getElementById('location').value
+            };
+
+            // Save to localStorage (client-side profile persist)
+            localStorage.setItem('userProfile', JSON.stringify(formData));
+            document.getElementById('profile-name').textContent = formData.fullName;
+            alert('Profile updated successfully!');
+        });
+
+        // Load saved profile data
+        const savedProfile = localStorage.getItem('userProfile');
+        if (savedProfile) {
+            const profile = JSON.parse(savedProfile);
+            document.getElementById('full-name').value = profile.fullName || '';
+            document.getElementById('bio').value = profile.bio || '';
+            document.getElementById('phone').value = profile.phone || '';
+            document.getElementById('location').value = profile.location || '';
+        }
+
+        // Load reservations from backend
+        (async function loadReservations() {
+            try {
+                const email = localStorage.getItem('userEmail');
+                if (!email) return;
+                const token = localStorage.getItem('token');
+                const res = await fetch('http://localhost:4000/api/reservations?email=' + encodeURIComponent(email), {
+                    headers: {
+                        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+                    }
+                });
+                const data = await res.json();
+                if (!res.ok) { console.warn('Could not load reservations', data); return; }
+
+                const listContainer = document.querySelector('.reservations-list');
+                if (!listContainer) return;
+                
+                if (!data.reservations || data.reservations.length === 0) {
+                    listContainer.innerHTML = `
+                        <div style="text-align: center; padding: 2rem; color: #6c757d;">
+                            <i class="fas fa-calendar-times" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                            <h3>No Reservations Yet</h3>
+                            <p>You haven't made any reservations yet. <a href="index.html">Browse events</a> to get started!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                listContainer.innerHTML = '';
+                data.reservations.forEach(r => {
+                    const card = document.createElement('div');
+                    card.className = 'reservation-card';
+                    
+                    // Format event date and time
+                    let eventDate = 'Date not specified';
+                    let eventTime = 'Time not specified';
+                    if (r.event && r.event.date) {
+                        const eventDateTime = new Date(r.event.date);
+                        eventDate = eventDateTime.toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                        eventTime = eventDateTime.toLocaleTimeString('en-US', {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                    }
+                    
+                    // Format price
+                    const price = r.event && r.event.price ? `${r.event.price} SAR` : 'Free';
+                    
+                    // Format reservation date
+                    const reservationDate = new Date(r.reservedAt * 1000).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    card.innerHTML = `
+                        <div class="reservation-header">
+                            <h3 class="reservation-title">${r.event ? r.event.title : 'Event Not Found'}</h3>
+                            <span class="reservation-id">#${r.id}</span>
+                        </div>
+                        <div class="reservation-content">
+                            <div class="reservation-image">
+                                <img src="${r.event && r.event.image ? r.event.image : 'https://via.placeholder.com/120'}" alt="Event image">
+                            </div>
+                            <div class="reservation-details">
+                                <div class="event-summary">
+                                    <div class="summary-item">
+                                        <span class="summary-label">Event Name:</span>
+                                        <span class="summary-value">${r.event ? r.event.title : 'Event Not Found'}</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="summary-label">Date:</span>
+                                        <span class="summary-value">${eventDate}</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="summary-label">Time:</span>
+                                        <span class="summary-value">${eventTime}</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="summary-label">Location:</span>
+                                        <span class="summary-value">${r.event ? r.event.location : 'Not specified'}</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="summary-label">Total Amount:</span>
+                                        <span class="summary-value">${price}</span>
+                                    </div>
+                                </div>
+                                <p class="reservation-meta">
+                                    <i class="fas fa-calendar"></i> Reserved on ${reservationDate}
+                                    <br>
+                                    <i class="fas fa-user"></i> ${r.fullName}
+                                    ${r.phone ? `<br><i class="fas fa-phone"></i> ${r.phone}` : ''}
+                                    <br>
+                                    <i class="fas fa-ticket-alt"></i> ${r.seats} seat${r.seats > 1 ? 's' : ''}
+                                </p>
+                                <span class="reservation-status status-upcoming">${r.paymentStatus}</span>
+                            </div>
+                        </div>
+                    `;
+                    listContainer.appendChild(card);
+                });
+            } catch (err) { 
+                console.error(err);
+                const listContainer = document.querySelector('.reservations-list');
+                if (listContainer) {
+                    listContainer.innerHTML = `
+                        <div style="text-align: center; padding: 2rem; color: #dc3545;">
+                            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                            <h3>Error Loading Reservations</h3>
+                            <p>There was a problem loading your reservations. Please try again later.</p>
+                        </div>
+                    `;
+                }
+            }
+        })();
+
+        // Handle profile picture upload
+        document.querySelector('.profile-image-edit').addEventListener('click', function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('profile-pic').src = e.target.result;
+                        localStorage.setItem('profilePicture', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            
+            input.click();
+        });
+
+        // Load saved profile picture
+        const savedPicture = localStorage.getItem('profilePicture');
+        if (savedPicture) {
+            document.getElementById('profile-pic').src = savedPicture;
+        }
+    </script>
+</body>
+</html> 

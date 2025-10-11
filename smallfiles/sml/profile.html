@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile | Saudi Events</title>
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER, NAV, and FOOTER copied from index.html for consistency -->
+    <div class="container">
+        <h1>User Profile</h1>
+        
+        <div class="profile-container">
+            <div class="profile-picture">
+                <img src="/api/placeholder/400/400" alt="User Profile Picture">
+                <button class="btn" id="change-photo-btn"><i class="fas fa-camera"></i> Change Photo</button>
+            </div>
+            
+            <div class="profile-info">
+                <h2 id="user-name">Abdullah Al-Qahtani</h2>
+                <p id="user-bio">Event enthusiast from Riyadh with a passion for cultural festivals and music concerts. Member since 2020.</p>
+                
+                <div class="profile-stats">
+                    <div class="stat-box">
+                        <div class="stat-number" id="events-attended">27</div>
+                        <div class="stat-label">Events Attended</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="reviews-written">14</div>
+                        <div class="stat-label">Reviews Written</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="years-member">3</div>
+                        <div class="stat-label">Years as Member</div>
+                    </div>
+                </div>
+                
+                <div class="profile-tabs">
+                    <button class="tab-button active" data-tab="upcoming">Upcoming Events</button>
+                    <button class="tab-button" data-tab="past">Past Events</button>
+                    <button class="tab-button" data-tab="saved">Saved Events</button>
+                    <button class="tab-button" data-tab="settings">Account Settings</button>
+                </div>
+                
+                <div class="tab-content" id="upcoming-tab">
+                    <h3>Your Upcoming Events</h3>
+                    <div class="events-list" id="upcoming-events">
+                        <!-- Event items will be loaded dynamically -->
+                        <div class="event-item">
+                            <h4>Riyadh Season 2025 Opening Ceremony</h4>
+                            <p><i class="fas fa-calendar"></i> May 25, 2025</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Boulevard City, Riyadh</p>
+                            <div class="event-actions">
+                                <button class="btn">View Ticket</button>
+                                <button class="btn">Add to Calendar</button>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <h4>Saudi National Day Concert</h4>
+                            <p><i class="fas fa-calendar"></i> September 23, 2025</p>
+                            <p><i class="fas fa-map-marker-alt"></i> King Fahd Stadium, Riyadh</p>
+                            <div class="event-actions">
+                                <button class="btn">View Ticket</button>
+                                <button class="btn">Add to Calendar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="past-tab" style="display: none;">
+                    <h3>Your Past Events</h3>
+                    <div class="events-list" id="past-events">
+                        <!-- Past events will be loaded dynamically -->
+                        <div class="event-item">
+                            <h4>AlUla Festival</h4>
+                            <p><i class="fas fa-calendar"></i> January 15, 2025</p>
+                            <p><i class="fas fa-map-marker-alt"></i> AlUla Old Town</p>
+                            <div class="event-actions">
+                                <button class="btn">Write Review</button>
+                                <button class="btn">View Photos</button>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <h4>MDLBEAST Soundstorm</h4>
+                            <p><i class="fas fa-calendar"></i> December 16-19, 2024</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Banban, Riyadh</p>
+                            <div class="event-actions">
+                                <button class="btn">Write Review</button>
+                                <button class="btn">View Photos</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="saved-tab" style="display: none;">
+                    <h3>Your Saved Events</h3>
+                    <div class="events-list" id="saved-events">
+                        <!-- Saved events will be loaded dynamically -->
+                        <div class="event-item" data-name="Jeddah Food Festival">
+                            <h4>Jeddah Food Festival</h4>
+                            <p><i class="fas fa-calendar"></i> June 10-15, 2025</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Jeddah Waterfront</p>
+                            <div class="event-actions">
+                                <button class="btn">Purchase Ticket</button>
+                                <button class="btn" onclick="handleEventAction('remove-saved','Jeddah Food Festival')">Remove from Saved</button>
+                            </div>
+                        </div>
+                        <div class="event-item" data-name="Red Sea International Film Festival">
+                            <h4>Red Sea International Film Festival</h4>
+                            <p><i class="fas fa-calendar"></i> December 5-14, 2025</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Al-Balad, Jeddah</p>
+                            <div class="event-actions">
+                                <button class="btn">Purchase Ticket</button>
+                                <button class="btn" onclick="handleEventAction('remove-saved','Red Sea International Film Festival')">Remove from Saved</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="settings-tab" style="display: none;">
+                    <h3>Account Settings</h3>
+                    <form id="settings-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" value="Abdullah Al-Qahtani">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" value="abdullah@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" value="+966 50 123 4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" class="form-control" rows="4">Event enthusiast from Riyadh with a passion for cultural festivals and music concerts. Member since 2020.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Notification Preferences</label>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="notify-upcoming" checked>
+                                <label for="notify-upcoming">Upcoming Events</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="notify-recommendations" checked>
+                                <label for="notify-recommendations">Personalized Recommendations</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="notify-promotions">
+                                <label for="notify-promotions">Special Promotions</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="scripts/profile.js"></script>
+</body>
+</html>

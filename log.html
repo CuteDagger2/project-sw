@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Saudi Events</title>
+    <link rel="stylesheet" href="log.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER, NAV, and FOOTER copied from index.html for consistency -->
+    <div class="container">
+        <div class="login-container">
+            <div class="login-header">
+                <i class="fas fa-calendar-alt"></i>
+                <h1>Saudi Events</h1>
+                <p>Welcome back! Please login to your account.</p>
+            </div>
+            
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </label>
+                    <input type="email" id="email" required placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <div class="password-input">
+                        <input type="password" id="password" required placeholder="Enter your password">
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                </div>
+                
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+                
+                <!-- Security Status Messages -->
+                <div id="security-status" class="security-status" style="display: none;">
+                    <div id="attempts-warning" class="attempts-warning" style="display: none;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span id="attempts-text">Invalid credentials</span>
+                    </div>
+                    <div id="lockout-message" class="lockout-message" style="display: none;">
+                        <i class="fas fa-lock"></i>
+                        <span id="lockout-text">Account temporarily locked</span>
+                        <div id="countdown" class="countdown"></div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+                
+                <div class="social-login">
+                    <p>Or login with</p>
+                    <div class="social-buttons">
+                        <button type="button" class="social-btn google">
+                            <i class="fab fa-google"></i>
+                            Google
+                        </button>
+                        <button type="button" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            Facebook
+                        </button>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="register-options">
+                <p>Don't have an account? Choose your registration type:</p>
+                <div class="register-buttons">
+                    <a href="register.html?type=user" class="register-btn user">
+                        <i class="fas fa-user"></i>
+                        Register as User
+                    </a>
+                    <a href="register.html?type=organization" class="register-btn organization">
+                        <i class="fas fa-building"></i>
+                        Register as Organization
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loginToServer(email, password) {
+            try {
+                const res = await fetch('http://localhost:4000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    if (res.status === 429) {
+                        // Account is locked
+                        showLockoutMessage(data.lockUntil);
+                        return null;
+                    } else {
+                        // Invalid credentials - show attempt warning
+                        showAttemptsWarning(data.attempts || 1);
+                        return null;
+                    }
+                }
+                // Success - hide any security messages
+                hideSecurityMessages();
+                return data;
+            } catch (err) {
+                console.error(err);
+                showErrorMessage('Network error. Please check your connection.');
+                return null;
+            }
+        }
+
+        function showAttemptsWarning(attempts) {
+            const securityStatus = document.getElementById('security-status');
+            const attemptsWarning = document.getElementById('attempts-warning');
+            const attemptsText = document.getElementById('attempts-text');
+            const lockoutMessage = document.getElementById('lockout-message');
+            
+            // Hide lockout message if visible
+            lockoutMessage.style.display = 'none';
+            
+            // Show attempts warning
+            const remainingAttempts = 3 - attempts;
+            if (remainingAttempts > 0) {
+                attemptsText.textContent = `Invalid credentials. ${remainingAttempts} attempt${remainingAttempts > 1 ? 's' : ''} remaining before account lockout.`;
+            } else {
+                attemptsText.textContent = 'Account has been temporarily locked due to multiple failed attempts.';
+            }
+            
+            attemptsWarning.style.display = 'flex';
+            securityStatus.style.display = 'block';
+        }
+
+        function showLockoutMessage(lockUntil) {
+            const securityStatus = document.getElementById('security-status');
+            const attemptsWarning = document.getElementById('attempts-warning');
+            const lockoutMessage = document.getElementById('lockout-message');
+            const lockoutText = document.getElementById('lockout-text');
+            const countdown = document.getElementById('countdown');
+            const loginBtn = document.querySelector('.login-btn');
+            
+            // Hide attempts warning if visible
+            attemptsWarning.style.display = 'none';
+            
+            // Show lockout message
+            lockoutText.textContent = 'Account temporarily locked due to multiple failed login attempts.';
+            lockoutMessage.style.display = 'flex';
+            securityStatus.style.display = 'block';
+            
+            // Disable login button
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fas fa-lock"></i> Account Locked';
+            
+            // Start countdown
+            startCountdown(lockUntil, countdown, loginBtn);
+        }
+
+        function startCountdown(lockUntil, countdownElement, loginBtn) {
+            const updateCountdown = () => {
+                const now = Math.floor(Date.now() / 1000);
+                const remaining = lockUntil - now;
+                
+                if (remaining <= 0) {
+                    // Lockout expired
+                    countdownElement.textContent = 'Account unlocked! You can now try logging in again.';
+                    setTimeout(() => {
+                        hideSecurityMessages();
+                        loginBtn.disabled = false;
+                        loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+                    }, 2000);
+                    return;
+                }
+                
+                const minutes = Math.floor(remaining / 60);
+                const seconds = remaining % 60;
+                countdownElement.textContent = `Account will be unlocked in ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                setTimeout(updateCountdown, 1000);
+            };
+            
+            updateCountdown();
+        }
+
+        function hideSecurityMessages() {
+            const securityStatus = document.getElementById('security-status');
+            const attemptsWarning = document.getElementById('attempts-warning');
+            const lockoutMessage = document.getElementById('lockout-message');
+            
+            securityStatus.style.display = 'none';
+            attemptsWarning.style.display = 'none';
+            lockoutMessage.style.display = 'none';
+        }
+
+        function showErrorMessage(message) {
+            const securityStatus = document.getElementById('security-status');
+            const attemptsWarning = document.getElementById('attempts-warning');
+            const attemptsText = document.getElementById('attempts-text');
+            const lockoutMessage = document.getElementById('lockout-message');
+            
+            // Hide lockout message if visible
+            lockoutMessage.style.display = 'none';
+            
+            // Show error message
+            attemptsText.textContent = message;
+            attemptsWarning.style.display = 'flex';
+            securityStatus.style.display = 'block';
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            if (!email || !password) { alert('Please fill both fields'); return; }
+
+            const result = await loginToServer(email, password);
+            if (!result) return;
+
+            // Save token and user info
+            localStorage.setItem('token', result.token);
+            localStorage.setItem('userEmail', result.user.email);
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userType', result.user.type || 'user');
+            if (result.user.type === 'organization' && result.user.orgName) {
+                localStorage.setItem('orgName', result.user.orgName);
+            }
+
+            // Redirect based on type
+            if (result.user.type === 'organization') {
+                window.location.href = 'org.html';
+            } else {
+                window.location.href = 'profile.html';
+            }
+        });
+
+        // Toggle password visibility
+        document.querySelector('.toggle-password').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+</body>
+</html>
