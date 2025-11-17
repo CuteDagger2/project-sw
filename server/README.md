@@ -16,7 +16,7 @@ npm install
 
 2) Start the server:
 
-```cmd
+```cmd 
 npm start
 ```
 
