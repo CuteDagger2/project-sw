@@ -34,14 +34,8 @@ jobs:
       - name: Run Playwright tests
         run: npm run test:e2e
 
-      - name: Upload test report (JUnit)
-        uses: actions/upload-artifact@v3
+      - name: Upload Playwright reports
+        uses: actions/upload-artifact@v4
         with:
-          name: junit-report
-          path: reports/junit.xml
-
-      - name: Upload HTML report
-        uses: actions/upload-artifact@v3
-        with:
-          name: html-report
-          path: reports/playwright-report
+          name: playwright-reports
+          path: reports/
